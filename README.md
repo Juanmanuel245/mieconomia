@@ -1,9 +1,9 @@
 # Mi Economía
 Desarrollo realizado con:
-- Next JS 14
-- Tailwind CSS
-- Prisma
-- Postgres
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Prisma](https://www.prisma.io/)
+- [Postgres](https://www.postgresql.org/)
 
 ## Objetivo
 Poder tener un programa con el cual administrar los ingresos, egresos y facturas adeudadas de una unidad familiar.
@@ -12,5 +12,11 @@ Poder tener un programa con el cual administrar los ingresos, egresos y facturas
 *En construcción*
 
 ## Inicio del proyecto
+A continuación se detallan los pasos, tanto para utilizarlo en producción, como para ejecutarlo de manera local:
+### Ejecución local
 Para iniciar el proyecto de manera local, se deberá descargar y ejecutar el siguiente comando para instalar las librerías utilizadas:
 `npx install`
+Luego,  para levantar el proyecto, ejecutar: 
+`npm run dev`
+Una vez iniciado, abris el navegador en la siguiente dirección para ver el sitio operativo: 
+[http://localhost:3000](http://localhost:3000) 
