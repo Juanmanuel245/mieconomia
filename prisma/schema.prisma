@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model categoria_movimientos {
+  categoria_id BigInt        @id @default(autoincrement())
+  nombre       String        @db.VarChar(100)
+  movimientos  movimientos[]
+}
+
+model checklist {
+  checklist_id BigInt    @id @default(autoincrement())
+  mensaje      String    @db.VarChar
+  completado   Boolean?  @default(false)
+  vencimiento  DateTime? @db.Timestamp(6)
+  fechaalt     DateTime? @default(now()) @db.Timestamp(6)
+  fechaact     DateTime? @db.Timestamp(6)
+  usuarioalt   String?   @db.VarChar(100)
+  usuarioact   String?   @db.VarChar(500)
+}
+
+model facturas {
+  factura_id   BigInt       @id @default(autoincrement())
+  proveedor_id BigInt?
+  link         String?      @db.VarChar
+  monto        Decimal?     @db.Decimal
+  vencimiento  DateTime?    @db.Timestamp(6)
+  pagado       Boolean?     @default(false)
+  fechaalt     DateTime?    @default(now()) @db.Timestamp(6)
+  fechaact     DateTime?    @db.Timestamp(6)
+  usuarioalt   String?      @db.VarChar(100)
+  usuarioact   String?      @db.VarChar(100)
+  proveedores  proveedores? @relation(fields: [proveedor_id], references: [proveedor_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model movimientos {
+  movimiento_id         BigInt                 @id @default(autoincrement())
+  tipo_id               BigInt?
+  categoria_id          BigInt?
+  monto                 Decimal?               @db.Decimal
+  cedear                String?                @db.VarChar(50)
+  monto_unidad_cedear   Decimal?               @db.Decimal
+  crypto                String?                @db.VarChar(10)
+  monto_unidad_crypto   Decimal?               @db.Decimal
+  observaciones         String?                @db.VarChar(500)
+  fechaalt              DateTime?              @default(now()) @db.Timestamp(6)
+  fechaact              DateTime?              @db.Timestamp(6)
+  usuarioalt            String?                @db.VarChar
+  usuarioact            String?                @db.VarChar
+  categoria_movimientos categoria_movimientos? @relation(fields: [categoria_id], references: [categoria_id], onDelete: NoAction, onUpdate: NoAction)
+  tipo_movimientos      tipo_movimientos?      @relation(fields: [tipo_id], references: [tipo_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model proveedores {
+  proveedor_id  BigInt     @id @default(autoincrement())
+  proveedor     String     @db.VarChar(100)
+  observaciones String?    @db.VarChar(300)
+  facturas      facturas[]
+}
+
+model tipo_movimientos {
+  tipo_id     BigInt        @id @default(autoincrement())
+  tipo        String        @db.VarChar(100)
+  movimientos movimientos[]
+}
+
+model usuarios {
+  usuario_id BigInt    @id @default(autoincrement())
+  usuario    String    @db.VarChar(100)
+  nombre     String    @db.VarChar(100)
+  email      String    @db.VarChar(100)
+  fechaalt   DateTime? @default(now()) @db.Timestamp(6)
+  fechaact   DateTime? @db.Timestamp(6)
+  usuarioalt String?   @db.VarChar(100)
+  usuarioact String?   @db.VarChar(100)
+}
